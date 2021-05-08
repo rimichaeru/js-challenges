@@ -169,5 +169,4 @@ export const convertPascalCaseToSnakeCase = () => {
   }
 
   return snake_case_var
-
 };
