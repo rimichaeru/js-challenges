@@ -22,13 +22,19 @@
  */
 
 export const removeFalseValues = (booleanArr) => {
-  let newArr = [];
+  // for version
+  // let newArr = [];
+  // for (let index = 0; index < booleanArr.length; index++) {
+  //   if (booleanArr[index]) {
+  //     newArr.push(booleanArr[index]);
+  //   }
+  // }
 
-  for (let index = 0; index < booleanArr.length; index++) {
-    if (booleanArr[index]) {
-      newArr.push(booleanArr[index]);
-    }
-  }
+  // filter version
+  const newArr = booleanArr.filter((value) => {
+    return value == true;
+  })
+
   return newArr;
 };
 
@@ -41,11 +47,17 @@ export const removeFalseValues = (booleanArr) => {
  */
 
 export const createPercentageList = (numbersArr) => {
-  let newArr = [];
+  
+  // for version
+  // let newArr = [];
+  // for (let index = 0; index < numbersArr.length; index++) {
+  //   newArr.push(numbersArr[index] * 100 + "%");
+  // }
 
-  for (let index = 0; index < numbersArr.length; index++) {
-    newArr.push(numbersArr[index] * 100 + "%");
-  }
+  // map version
+  const newArr = numbersArr.map((num) => {
+    return num * 100 + "%"
+  })
 
   return newArr;
 };
@@ -60,11 +72,17 @@ export const createPercentageList = (numbersArr) => {
  */
 
 export const createListOfPoessessions = (possessionsArr, name) => {
-  let newArr = [];
+  
+  // for version
+  // let newArr = [];
+  // for (let index = 0; index < possessionsArr.length; index++) {
+  //   newArr.push(name + " " + possessionsArr[index]);
+  // }
 
-  for (let index = 0; index < possessionsArr.length; index++) {
-    newArr.push(name + " " + possessionsArr[index]);
-  }
+  // map version
+  const newArr = possessionsArr.map((item) => {
+    return name + " " + item
+  })
 
   return newArr;
 };
@@ -91,10 +109,11 @@ export const createListOfPoessessions = (possessionsArr, name) => {
  */
 
 export const convertStringToNumbersArray = (numberString) => {
-  let newArr = numberString.split("+").map(function(x) {
-    return parseInt(x, 10)
+  let newArr = numberString.split("+").map((num) => {
+    return parseInt(num, 10)
+
+    // can also numberString.split("+").map(Number)
   });
-  
 
   // lambda version instead of function(x), (x) => {return parseInt(x)}
 
@@ -110,16 +129,27 @@ export const convertStringToNumbersArray = (numberString) => {
  */
 
 export const createOddEvenArray = (numberString) => {
-  const numberArr = numberString.split("+");
-  let newArr = [];
+  
+  // for version
+  // const numberArr = numberString.split("+");
+  // let newArr = [];
+  // for (let index = 0; index < numberArr.length; index++) {
+  //   if (numberArr[index] % 2 == 0) {
+  //     newArr.push("even");
+  //   } else {
+  //     newArr.push("odd");
+  //   }  
+  // }
 
-  for (let index = 0; index < numberArr.length; index++) {
-    if (numberArr[index] % 2 == 0) {
-      newArr.push("even");
+  // map version
+  const numberArr = numberString.split("+");
+  const newArr = numberArr.map((num) => {
+    if (num % 2 == 0) {
+      return "even";
     } else {
-      newArr.push("odd");
-    }  
-  }
+      return "odd";
+    }
+  });
 
   return newArr;
 };
@@ -134,13 +164,15 @@ export const createOddEvenArray = (numberString) => {
  */
 
 export const filterBooksBySearch = (booksArr, searchTerm) => {
-  let removedItems = [];
+  // for version
+  // let removedItems = [];
+  // for (let index = 0; index < booksArr.length; index++) {
+  //   if (booksArr[index].includes(searchTerm)) {
+  //     removedItems.push(booksArr[index]);
+  //   }
+  // }
 
-  for (let index = 0; index < booksArr.length; index++) {
-    if (booksArr[index].includes(searchTerm)) {
-      removedItems.push(booksArr[index]);
-    }
-  }
+  const removedItems = booksArr.filter(book => book.includes(searchTerm));
 
   return removedItems;
 };
@@ -192,13 +224,22 @@ export const formatString = (string) => {
     cleanedArr = []
   }
 
-  for (let index = 0; index < cleanedArr.length; index++) {
-    if (index % 2 === 0) {
-      cleanedArr[index] = cleanedArr[index].toUpperCase();
+  // for version
+  // for (let index = 0; index < cleanedArr.length; index++) {
+  //   if (index % 2 === 0) {
+  //     cleanedArr[index] = cleanedArr[index].toUpperCase();
+  //   } else {
+  //     cleanedArr[index] = cleanedArr[index].toLowerCase();
+  //   }
+  // }
+
+  cleanedArr = cleanedArr.map((letter, i) => {
+    if (i % 2 == 0) {
+      return letter.toUpperCase();
     } else {
-      cleanedArr[index] = cleanedArr[index].toLowerCase();
+      return letter.toLowerCase();
     }
-  }
+  })
 
   return cleanedArr;
 };
@@ -227,28 +268,47 @@ export const formatString = (string) => {
  */
 
 export const fizzBuzz = (mixedArray) => {
-  let cleanArr = [];
-  
-  for (let index = 0; index < mixedArray.length; index++) {
 
-    if (/^[1-9]\d*$/g.test(mixedArray[index])) {
-      cleanArr.push(mixedArray[index]);
-    }
-  }
+  // for version
 
-  let newArr = [];
+  // let cleanArr = [];
+  // for (let index = 0; index < mixedArray.length; index++) {
 
-  for (let index = 0; index < cleanArr.length; index++) {
-    if (cleanArr[index] % 5 === 0 && cleanArr[index] % 3 === 0) {
-      newArr.push("FizzBuzz");
-    } else if (cleanArr[index] % 3 === 0) {
-      newArr.push("Fizz");
-    } else if (cleanArr[index] % 5 === 0) {
-      newArr.push("Buzz");
+  //   if (/^[1-9]\d*$/g.test(mixedArray[index])) {
+  //     cleanArr.push(mixedArray[index]);
+  //   }
+  // }
+
+  // let newArr = [];
+
+  // for (let index = 0; index < cleanArr.length; index++) {
+  //   if (cleanArr[index] % 5 === 0 && cleanArr[index] % 3 === 0) {
+  //     newArr.push("FizzBuzz");
+  //   } else if (cleanArr[index] % 3 === 0) {
+  //     newArr.push("Fizz");
+  //   } else if (cleanArr[index] % 5 === 0) {
+  //     newArr.push("Buzz");
+  //   } else {
+  //     newArr.push(`${cleanArr[index]}`);
+  //   }
+  // }
+
+  const cleanArr = mixedArray.filter((item) => {
+    return /^[1-9]\d*$/g.test(item);
+  })
+
+  const newArr = cleanArr.map((num) => {
+    if (num % 5 == 0 && num % 3 == 0) {
+      return "FizzBuzz"
+    } else if (num % 5 == 0) {
+      return "Buzz"
+    } else if (num % 3 == 0) {
+      return "Fizz"
     } else {
-      newArr.push(`${cleanArr[index]}`);
+      return `${num}`
     }
-  }
+  })
+
 
   return newArr;
 };

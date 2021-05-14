@@ -45,7 +45,7 @@ export const findSmallestNumber = (number1, number2) => {
  * @returns {number} 18
  */
 export const multiplyNumbers = (number1, number2) => {
-  return number1 * number2
+  return number1 * number2;
 };
 
 /* Intermediate Challenges */
@@ -133,6 +133,32 @@ export const getGrade = (score) => {
   } else {
     return "Score unavailable";
   }
+  
+```
+  switch (score) {
+    case score >= 80 && score <= 100:
+      return "A";
+      break;
+    case score >= 70:
+      return "B";
+      break;
+    case score >= 60:
+      return "C";
+      break;
+    case score >= 50:
+      return "D";
+      break;
+    case score >= 40:
+      return "E";
+      break;
+    case score >= 0:
+      return "F";
+      break;
+
+    default:
+      break;
+  }
+```
 };
 
 /**
