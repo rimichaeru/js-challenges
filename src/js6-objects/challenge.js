@@ -48,7 +48,7 @@ export const setFurnitureStoreLocation = (furniture, location) => {
  */
 export const makeSpaceship = (name, noOfSeats, engineType, canTravelSolarSystems) => {
   const spaceship = {
-    name: name, 
+    name: name,
     noOfSeats: noOfSeats,
     engineType: engineType,
     canTravelSolarSystems: canTravelSolarSystems,
