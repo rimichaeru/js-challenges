@@ -17,7 +17,10 @@
  * @returns {string[]} A list of the employees quotes for the website
  */
 export const getEmployeeQuotes = (employeeArr) => {
-  // Write code here
+  const quotes = employeeArr.map((employee) => {
+    return employee.quote
+  })
+  return quotes
 };
 
 /**
@@ -27,7 +30,13 @@ export const getEmployeeQuotes = (employeeArr) => {
  * @returns {{name: string, quote: string, yearsEmployed: number, isManagement: boolean}[]} An array containing only managers
  */
 export const getTheManagers = (employeeArr) => {
-  // Write code here
+  let newArr = [];
+  employeeArr.forEach((employee) => {
+   if (employee.isManagement) {
+     newArr.push(employee)
+   } 
+  })
+  return newArr;
 };
 
 /**
@@ -37,7 +46,7 @@ export const getTheManagers = (employeeArr) => {
  * @returns {number} The number of the keys on the object
  */
 export const getNumberOfKeys = (object) => {
-  // Write code here
+  return Object.keys(object).length;
 };
 
 /* Intermediate Challenges */
@@ -50,7 +59,16 @@ export const getNumberOfKeys = (object) => {
  * @returns {{name: string, price: number, hasFreeShipping: boolean, quantity: number}} The most expensive item in the shopping basket
  */
 export const findMostExpensiveItem = (shoppingBasketArr) => {
-  // Write code here
+  let mostExpensive;
+  shoppingBasketArr.forEach((item) => {
+    if (!mostExpensive) {
+      mostExpensive = item;
+    }
+    if (item.price > mostExpensive.price) {
+      mostExpensive = item;
+    }
+  })
+  return mostExpensive;
 };
 
 /**
@@ -69,7 +87,14 @@ export const findMostExpensiveItem = (shoppingBasketArr) => {
  * @returns {{name: string, price: number, hasFreeShipping: boolean, quantity: number, totalPrice: number}[]} A new array where each object has had a total price added to it
  */
 export const settotalPrice = (shoppingBasketArr) => {
-  // Write code here
+  let newArr = [];
+  shoppingBasketArr.forEach((item) => {
+    let newObj = {...item};
+    newObj.totalPrice = item.price * item.quantity;
+    newArr.push(newObj);
+  })
+
+  return newArr;
 };
 
 /**
@@ -79,7 +104,11 @@ export const settotalPrice = (shoppingBasketArr) => {
  * @returns {number} The total cost of the order
  */
 export const totalShoppingBasket = (shoppingBasketArr) => {
-  // Write code here
+  let sum = 0;
+  shoppingBasketArr.forEach((item) => {
+    sum += item.totalPrice;
+  })
+  return sum;
 };
 
 /* Advanced Challenges */
@@ -92,7 +121,18 @@ export const totalShoppingBasket = (shoppingBasketArr) => {
  * @returns {{id: number, name: string, ingredients: string[], country: string}[]} An array of cleaned meal objects
  */
 export const getImportantKeys = (mealsArr) => {
-  // Write code here
+  let filterArr = [];
+  mealsArr.forEach((item) => {
+    let newObject = {};
+    for (const j in item) {
+      if (j == "id" || j == "name" ||j == "ingredients" || j == "country") {
+        newObject[j] = item[j]
+      }
+    }
+    filterArr.push(newObject);
+  })
+
+  return filterArr;
 };
 
 /**
@@ -106,7 +146,22 @@ export const getImportantKeys = (mealsArr) => {
  * @returns {{id: number, name: string, ingredients: string[], country: string, isVegetarian: boolean, timeToCook: number}[]}
  */
 export const setImportantKeys = (mealsArr) => {
-  // Write code here
+  let newArr = [];
+
+  mealsArr.forEach((item) => {
+    let object = {...item};
+    let keys = Object.keys(item);
+
+    if (!(keys.indexOf("isVegetarian") >= 0)) {
+      object["isVegetarian"] = false;
+    }
+    if (!(keys.indexOf("timeToCook") >= 0)) {
+      object["timeToCook"] = 15;
+
+    }
+    newArr.push(object);
+  })
+  return newArr;
 };
 
 /* Expert Challenge */
@@ -138,5 +193,25 @@ export const setImportantKeys = (mealsArr) => {
  * }[]} A Cleaned array of cocktail data
  */
 export const cleanCocktailResponseData = (cocktailData) => {
-  // Write code here
+  let newArr = [];
+
+  cocktailData.forEach((item) => {
+    let newObj = {};
+    newObj.id = item.idDrink;
+    newObj.drink = item.strDrink;
+    newObj.category = item.strCategory;
+    newObj.alcoholic = item.strAlcoholic;
+    newObj.instructions = item.strInstructions;
+    newObj.ingredients = [];
+
+    for (let i = 0; i < 7; i++) {
+      if (item[`strIngredient${i}`]) {
+        newObj.ingredients.push(item[`strIngredient${i}`])
+      }
+    }
+
+    newArr.push(newObj);
+  })
+
+  return newArr;
 };
